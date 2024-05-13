@@ -6,7 +6,7 @@ const bookSchema = new Schema(
     name: { type: String, require: true },
     images: { type: Array, require: true },
     type: { type: String, require: true },
-    role: { type: Boolean, default: true },
+    availability: { type: Boolean, default: true },
   },
   {
     timestamps: true,
