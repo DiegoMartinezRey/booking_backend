@@ -12,6 +12,16 @@ const userController = {
       res.status(500).send("Not find any user");
     }
   },
+  addUser: async (req, res) => {
+    try {
+      const userToAdd = req.body;
+      const user = await User.create(userToAdd);
+      return res.status(201).json(user);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(400).send("Failed to create user");
+    }
+  },
 };
 
 module.exports = userController;
