@@ -21,8 +21,8 @@ const bookController = {
   },
   deleteBook: async (req, res) => {
     try {
-      const user = await Book.findOneAndDelete({ _id: req.params.id });
-      res.json(user);
+      const book = await Book.findOneAndDelete({ _id: req.params.id });
+      res.json(book);
     } catch (error) {
       console.log(error);
       res.status(404).send("User cannot be deleted");
@@ -30,13 +30,13 @@ const bookController = {
   },
   updateBook: async (req, res) => {
     try {
-      const user = await Book.findOneAndUpdate(
+      const book = await Book.findOneAndUpdate(
         {
           _id: req.params.id,
         },
         req.body
       );
-      res.json(user);
+      res.json(book);
     } catch (error) {
       console.log(error);
       res.status(404).send("User cannot be update");
