@@ -1,7 +1,7 @@
 const User = require("../models/User");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
-// const saltRounds = 10;
+const saltRounds = 10;
 
 const userController = {
   getAllUsers: async (req, res) => {
@@ -14,8 +14,17 @@ const userController = {
   },
   addUser: async (req, res) => {
     try {
-      const userToAdd = req.body;
-      const user = await User.create(userToAdd);
+      const { name, surname, email, password } = req.body;
+      if (!email || !password) {
+        return res.status(400).json({ msg: "Invalid email or password" });
+      }
+      const encryptedPassword = await bcrypt.hash(password, saltRounds);
+      const user = await User.create({
+        name: name,
+        surname: surname,
+        email: email,
+        password: encryptedPassword,
+      });
       return res.status(201).json(user);
     } catch (error) {
       console.error("Error creating user:", error);
