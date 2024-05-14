@@ -19,6 +19,15 @@ const bookController = {
       res.status(400).send("Failed to create book");
     }
   },
+  deleteBook: async (req, res) => {
+    try {
+      const user = await Book.findOneAndDelete({ _id: req.params.id });
+      res.json(user);
+    } catch (error) {
+      console.log(error);
+      res.status(404).send("User cannot be deleted");
+    }
+  },
 };
 
 module.exports = bookController;
