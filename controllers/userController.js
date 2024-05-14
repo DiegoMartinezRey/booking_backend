@@ -58,6 +58,21 @@ const userController = {
     }
     return res.status(404).json({ msg: "Password does not match" });
   },
+  verifyToken: (req, res, next) => {
+    const token = req.headers.authorization;
+    if (!token) res.status(400).json({ msg: "Missing token" });
+    try {
+      jwt.verify(token, process.env.SECRET, function (err, decoded) {
+        if (err) {
+          return res.status(401).send("Token is invalid");
+        }
+        req.user = decoded;
+        return next();
+      });
+    } catch (error) {
+      return res.status(404).json({ msg: "Token not valid or expired" });
+    }
+  },
 };
 
 module.exports = userController;
