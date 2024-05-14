@@ -28,6 +28,20 @@ const bookController = {
       res.status(404).send("User cannot be deleted");
     }
   },
+  updateBook: async (req, res) => {
+    try {
+      const user = await Book.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        req.body
+      );
+      res.json(user);
+    } catch (error) {
+      console.log(error);
+      res.status(404).send("User cannot be update");
+    }
+  },
 };
 
 module.exports = bookController;
