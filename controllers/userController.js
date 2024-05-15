@@ -12,6 +12,16 @@ const userController = {
       res.status(500).send("Not find any user");
     }
   },
+  getUserById: async (req, res) => {
+    try {
+      const userInfo = req.params.id;
+      console.log("userid: ", userInfo);
+      const user = await User.findOne({ _id: userInfo });
+      return res.json(user);
+    } catch (error) {
+      res.status(500).send("Not find any user");
+    }
+  },
   addUser: async (req, res) => {
     try {
       const { name, surname, email, password } = req.body;
