@@ -52,6 +52,7 @@ const userController = {
       return res.status(200).json({
         msg: "Userlogged",
         token,
+        id: user._id,
         name: user.name,
         surname: user.surname,
         role: user.role,
