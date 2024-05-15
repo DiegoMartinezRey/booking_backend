@@ -54,6 +54,7 @@ const userController = {
         token,
         name: user.name,
         surname: user.surname,
+        role: user.role,
       });
     }
     return res.status(404).json({ msg: "Password does not match" });
