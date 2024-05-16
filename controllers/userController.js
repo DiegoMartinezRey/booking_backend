@@ -15,7 +15,6 @@ const userController = {
   getUserById: async (req, res) => {
     try {
       const userInfo = req.params.id;
-      console.log("userid: ", userInfo);
       const user = await User.findOne({ _id: userInfo });
       return res.json(user);
     } catch (error) {
@@ -50,6 +49,21 @@ const userController = {
         req.body
       );
       res.json(user);
+    } catch (error) {
+      console.log(error);
+      res.status(404).send("User cannot be update");
+    }
+  },
+  updateUserBooking: async (req, res) => {
+    const { bookingId } = req.body;
+    try {
+      const user = await User.findOne({ _id: req.params.id });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      user.bookings.push(bookingId);
+      await user.save();
+      res.status(200).json(user);
     } catch (error) {
       console.log(error);
       res.status(404).send("User cannot be update");

@@ -7,7 +7,10 @@ const userSchema = new Schema(
     surname: { type: String, require: true, maxlenght: 15 },
     email: { type: String, require: true, unique: true },
     password: { type: String, require: true },
-    bookings: { type: Array, default: [] },
+    bookings: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "book" }],
+      default: [],
+    },
     role: {
       type: String,
       enum: ["admin", "user"],
