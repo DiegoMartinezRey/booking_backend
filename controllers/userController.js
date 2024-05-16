@@ -41,6 +41,20 @@ const userController = {
       res.status(400).send("Failed to create user");
     }
   },
+  updateUser: async (req, res) => {
+    try {
+      const user = await User.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        req.body
+      );
+      res.json(user);
+    } catch (error) {
+      console.log(error);
+      res.status(404).send("User cannot be update");
+    }
+  },
   deleteUser: async (req, res) => {
     try {
       const user = await User.findOneAndDelete({ _id: req.params.id });
